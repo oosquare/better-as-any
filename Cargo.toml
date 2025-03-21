@@ -1,6 +1,10 @@
 [package]
 name = "better-as-any"
+license = "MIT"
 version = "0.1.0"
 edition = "2021"
+description = "Automatically makes your trait objects downcasting-capable"
+authors = ["Justin Chen oosquare@outlook.com"]
+repository = "https://github.com/oosquare/better-as-any"
 
 [dependencies]
