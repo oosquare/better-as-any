@@ -61,7 +61,7 @@ pub trait Downcast: Owned + Sized {
         T: Applicable<Self, Output = <Self::Family as OwnedFamily>::Owned<T>>;
 }
 
-impl<S: IntoAnyBox> Downcast for Box<S> {
+impl<S: IntoAnyBox + ?Sized> Downcast for Box<S> {
     /// Tries to downcast to concrete boxed type.
     ///
     /// Any `T` implementing `Any` is effectively acceptable for this method.
@@ -75,7 +75,7 @@ impl<S: IntoAnyBox> Downcast for Box<S> {
     }
 }
 
-impl<S: IntoAnyRc> Downcast for Rc<S> {
+impl<S: IntoAnyRc + ?Sized> Downcast for Rc<S> {
     /// Tries to downcast to concrete boxed type.
     ///
     /// Any `T` implementing `Any` is effectively acceptable for this method.
@@ -89,7 +89,7 @@ impl<S: IntoAnyRc> Downcast for Rc<S> {
     }
 }
 
-impl<S: IntoAnyArc> Downcast for Arc<S> {
+impl<S: IntoAnyArc + ?Sized> Downcast for Arc<S> {
     /// Tries to downcast to concrete boxed type.
     ///
     /// Any `T` implementing `Any + Send + Sync` is effectively acceptable for
