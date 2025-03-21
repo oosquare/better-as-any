@@ -3,9 +3,16 @@ pub mod upcasting;
 
 use std::any::{self, Any};
 
-pub use upcasting::{AsAnyMut, AsAnyRef, IntoAnyArc, IntoAnyBox, IntoAnyRc};
+use upcasting::{AsAnyMut, AsAnyRef, IntoAnyArc, IntoAnyBox, IntoAnyRc};
 
+/// Trait which adds runtime reflection functionality to all its implementors
 pub trait InheritAny: Any + AsAnyRef + AsAnyMut + IntoAnyBox + IntoAnyRc + IntoAnyArc {
+    /// Returns the concrete type's name.
+    ///
+    /// Note that developers should not rely on the content of the value, since
+    /// it's subjected to the internal implementation of rustc, and may varies
+    /// on different machines, compilers or builds. See
+    /// [`std::any::type_name()`] for more information.
     fn type_name(&self) -> &'static str;
 }
 

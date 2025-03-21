@@ -6,13 +6,19 @@ use crate::downcasting::owned::{Owned, OwnedFamily};
 use crate::downcasting::DowncastRef;
 use crate::upcasting::{IntoAnyArc, IntoAnyBox, IntoAnyRc};
 
+/// Trait that models double dispatch in type downcasting.
+///
+/// This trait is implemented by all types used as target type in downcasting,
+/// while `O` is for a owned wrapper of a trait object, usually a smart pointer.
 pub trait Applicable<O>: Any + Sized
 where
     O: Owned,
     O::Family: OwnedFamily<Owned<Self> = Self::Output>,
 {
+    /// The type of a boxed `Self`.
     type Output;
 
+    /// Downcasts the owned wrapper to a wrapper of a concrete type.
     fn apply_downcasting(owned: O) -> Result<Self::Output, O>;
 }
 
